@@ -33,6 +33,7 @@ function TaskList({ taskList, onDelete, onAddNote }) {
                 <input
                   ref={notes}
                   onChange={(e) => (notes.current = e.target.value)}
+                  onFocus={(e) => (notes.current = e.target.value)}
                   type="text"
                   placeholder="Enter some notes"
                   className="outline-none px-2 flex-grow"
