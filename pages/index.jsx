@@ -15,7 +15,7 @@ export default function Home() {
   const onSubmitTask = (e) => {
     e.preventDefault();
     document.getElementById("taskInput").value = "";
-    const newTask = { taskName: task.current, notes: "hi" };
+    const newTask = { taskName: task.current, notes: "", isUpdated: true };
     setTaskList((prev) => [...prev, newTask]);
   };
   const onDeleteHandler = (deletedTask) => {
@@ -33,7 +33,7 @@ export default function Home() {
       return [...prev, deletedTask];
     });
   };
-  const addNoteHandler = ({ taskName, notes }) => {
+  const addNoteHandler = ({ taskName, notes, index }) => {
     //add to notes prop in task obj
     setTaskList((prev) => {
       const updatedTaskList = [...prev];
@@ -41,10 +41,20 @@ export default function Home() {
         (tasks) => tasks.taskName === taskName
       );
       updatedTaskList[indexOfTask].notes = notes;
+      updatedTaskList[indexOfTask].isUpdated = true;
+      console.log(updatedTaskList);
       return [...updatedTaskList];
     });
   };
-  console.log(taskList);
+  const onUpdateNotes = (isUpdated, index) => {
+    setTaskList((prev) => {
+      const newArr = prev;
+      newArr[index].isUpdated = isUpdated;
+      console.log(newArr);
+      return [...newArr];
+    });
+  };
+  // console.log(taskList);
   return (
     <>
       <Head>
@@ -77,6 +87,7 @@ export default function Home() {
               taskList={taskList}
               onDelete={onDeleteHandler}
               onAddNote={addNoteHandler}
+              onUpdateNotes={onUpdateNotes}
             />
           )}
         </section>
